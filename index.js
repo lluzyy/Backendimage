@@ -31,11 +31,7 @@ http.createServer((req, res) => {
                 //console.log(result)
                 res.end(util.inspect(result.url));
                 return;
-                if (result.public_id) {
-                    res.writeHead(200, { 'content-type': 'text/plain' });
-                    res.write('received upload:\n\n');
-                    res.end(util.inspect({ fields: fields, files: files }));
-                }
+           
             }
             );
         });
