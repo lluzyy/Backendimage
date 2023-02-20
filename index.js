@@ -1,6 +1,9 @@
 const http = require('http');
 const util = require('util');
-
+var express = require('express')
+var cors = require('cors')
+var app = express()
+app.use(cors())
 // https://github.com/node-formidable/node-formidable
 const formidable = require('formidable');
 
@@ -15,12 +18,9 @@ cloudinary.config({
     api_secret: "vpXqcJQ0dUIPIqCYGQKqWXSMHCk"
 });
 
-
-http.createServer((req, res) => {
-    if (req.url === '/upload' && req.method.toLowerCase() === 'post') {
-  
+app.post('/upload', function (req, res, next) {
         // parse a file upload
-       const form = formidable();
+        const form = formidable();
 
         form.parse(req, (err, fields, files) => {
           //console.log(files)
@@ -36,7 +36,14 @@ http.createServer((req, res) => {
             );
         });
         return;
-    }
+})
 
 
-}).listen(4000);
+app.listen(4000, function () {
+    console.log('CORS-enabled web server listening on port 4000')
+  })
+
+  
+
+
+
